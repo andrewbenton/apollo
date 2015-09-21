@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+real_prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=@DOLLAR@{prefix}
+libdir=@DOLLAR@{exec_prefix}/${CMAKE_INSTALL_LIBDIR}
+includedir=@DOLLAR@{exec_prefix}/${CMAKE_INSTALL_INCLUDEDIR}
+
+Name: apollo-behavioral
+Description: Behavioral tree implementation in libapollo
+Libs: -L@DOLLAR@{libdir} -lapollo-behavioral
+Cflags: -I@DOLLAR@{includedir}
+Requires: glib-2.0 gio-2.0 json-glib-1.0 gee-0.8

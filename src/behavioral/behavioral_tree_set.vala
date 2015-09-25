@@ -23,6 +23,11 @@ namespace apollo.behavioral
             return (this.node_map[node_name] != null);
         }
 
+        public void add_node(string node_name, Node node)
+        {
+            this.node_map[node_name] = node;
+        }
+
         public void register_tree(string tree_name, string root)
         {
             this.tree_map[tree_name] = root;

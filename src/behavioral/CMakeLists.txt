@@ -1,11 +1,7 @@
-set(CMAKE_C_FLAGS "")
 set(PREFIX ${CMAKE_INSTALL_PREFIX})
 project(apollo-behavioral)
 
-set(CMAKE_C_FLAGS "")
-set(PREFIX ${CMAKE_INSTALL_PREFIX})
 set (DOLLAR "$")
-
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/apollo-behavioral.pc   ${CMAKE_CURRENT_BINARY_DIR}/apollo-behavioral.pc)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/apollo-behavioral.deps ${CMAKE_CURRENT_BINARY_DIR}/apollo-behavioral.deps)
@@ -27,8 +23,6 @@ set(APP_SOURCES ${APP_SOURCES} behavioral_tree_error.vala)
 set(APP_SOURCES ${APP_SOURCES} behavioral_tree_set.vala)
 set(APP_SOURCES ${APP_SOURCES} node.vala)
 set(APP_SOURCES ${APP_SOURCES} node_context.vala)
-set(APP_SOURCES ${APP_SOURCES} sequence_node.vala)
-set(APP_SOURCES ${APP_SOURCES} sequence_node_context.vala)
 set(APP_SOURCES ${APP_SOURCES} status_value.vala)
 set(APP_SOURCES ${APP_SOURCES} tree_context.vala)
 

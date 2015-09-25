@@ -7,11 +7,14 @@ namespace apollo.behavioral
         public LinkedList<NodeContext> stack;
         public string root;
         public BehavioralTreeSet bts;
-        public uint max_iters;
+        public uint max_iters { get; set; }
         public StatusValue status { get; private set; }
 
-        internal TreeContext(BehavioralTreeSet bts, string root, uint max_iters = 0)
+        internal TreeContext(BehavioralTreeSet bts, string root, uint max_iters = 1)
         {
+            if(max_iters < 1)
+                max_iters = 1;
+
             this.stack = new LinkedList<NodeContext>();
             this.root = root;
             this.bts = bts;
@@ -19,14 +22,7 @@ namespace apollo.behavioral
             this.status = StatusValue.FINISHED;
         }
 
-        /*
         public StatusValue run()
-        {
-            return this.run_with_limit(this.max_iters);
-        }
-        */
-
-        public StatusValue run_with_limit(uint max_iters)
         {
             //if the stack is emtpy, start over
             if(this.stack.size < 1)

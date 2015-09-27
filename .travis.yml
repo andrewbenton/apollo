@@ -1,6 +1,7 @@
 language: vala
 
 before_install:
+    - pushd
     - sudo apt-get install cmake
     - sudo apt-get install cmake-curses-gui
     - sudo apt-get install cmake-data
@@ -21,9 +22,9 @@ before_install:
     - wget https://download.gnome.org/sources/libgee/0.18/libgee-0.18.0.tar.xz -O /tmp/libgee-0.18.0.tar.xz
     - cd && tar xvf /tmp/libgee-0.18.0.tar.xz
     - cd libgee-0.18.0 && ./configure && sudo make && sudo make install
+    - popd
 
 before_script:
-    - cd && cd andrewbenton/apollo
     - mkdir build
     - cd build
     - cmake ..

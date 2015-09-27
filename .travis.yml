@@ -1,6 +1,7 @@
 language: vala
 
 before_install:
+    - export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/lib"
     - pushd .
     - sudo apt-get install cmake
     - sudo apt-get install cmake-curses-gui

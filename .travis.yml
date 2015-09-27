@@ -12,11 +12,14 @@ before_install:
     - sudo apt-get install btyacc
     - sudo apt-get install byacc
     - sudo apt-get install flex
+    - wget https://download.gnome.org/sources/glib/2.42/glib-2.42.2.tar.xz -O /tmp/glib-2.42.2.tar.xz
+    - cd && tar xvf /tmp/glib-2.42.2.tar.xz
+    - cd glib-2.42.2.tar.xz && ./configure && sudo make && sudo make install
     - wget https://download.gnome.org/sources/vala/0.30/vala-0.30.0.tar.xz -O /tmp/vala-0.30.0.tar.xz
     - cd && tar xvf /tmp/vala-0.30.0.tar.xz
     - cd vala-0.30.0 && ./configure && sudo make && sudo make install
-    - wget https://download.gnome.org/sources/0.10/libgee-0.10.5.tar.xz -O /tmp/libgee.tar.xz
-    - cd && tar xvf /tmp/libgee.tar.xz
+    - wget https://download.gnome.org/sources/libgee/0.18/libgee-0.18.0.tar.xz
+    - cd && tar xvf /tmp/libgee-0.18.0.tar.xz
     - cd libgee-0.18.0 && ./configure && sudo make && sudo make install
 
 before_script:

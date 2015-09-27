@@ -46,6 +46,8 @@ namespace apollo.behavioral
 
                 status = nc.call(out next);
 
+                this.status = status;
+
                 switch(status)
                 {
                     case StatusValue.SUCCESS:
@@ -53,16 +55,14 @@ namespace apollo.behavioral
                         this.stack.poll_head();
                         if(this.stack.size > 0)
                         {
-                            this.stack.peek_head();
+                            this.stack.peek_head().send(status);
                         }
                         else
                         {
-                            this.status = status;
                             return status;
                         }
                         break;
                     case StatusValue.RUNNING:
-                        this.status = status;
                         return status;
                     case StatusValue.CALL_DOWN:
                         n = this.bts[next];

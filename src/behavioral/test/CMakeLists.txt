@@ -17,18 +17,35 @@ set(VALA_PACKAGES ${VALA_PACKAGES} gio-2.0)
 set(VALA_PACKAGES ${VALA_PACKAGES} json-glib-1.0)
 set(VALA_PACKAGES ${VALA_PACKAGES} gee-0.8)
 
-set(APP_SOURCES ${APP_SOURCES} tree_construct.vala)
-
 set(CUSTOM_VAPIS_LIST ${CUSTOM_VAPIS_LIST} ${CMAKE_BINARY_DIR}/src/behavioral/apollo-behavioral.vapi)
 
-vala_precompile(VALA_C tree-context-test
-    ${APP_SOURCES}
+
+#Make executable for context executable and test
+set(TC_APP_SOURCES ${TC_APP_SOURCES} tree_construct.vala)
+
+vala_precompile(VALA_C_TC tree-context-test
+    ${TC_APP_SOURCES}
 PACKAGES
     ${VALA_PACKAGES}
 CUSTOM_VAPIS
     ${CUSTOM_VAPIS_LIST}
 )
 
-add_executable(tree-context-test ${VALA_C})
+add_executable(tree-context-test ${VALA_C_TC})
 
 add_test(NAME tree-context-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/tree-context-test)
+
+#Make executable for two-tier executable and test
+set(TT_APP_SOURCES ${TT_APP_SOURCES} two_tier.vala)
+
+vala_precompile(VALA_C_TT two-tier-test
+    ${TT_APP_SOURCES}
+PACKAGES
+    ${VALA_PACKAGES}
+CUSTOM_VAPIS
+    ${CUSTOM_VAPIS_LIST}
+)
+
+add_executable(two-tier-test ${VALA_C_TT})
+
+add_test(NAME two-tier-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/two-tier-test)

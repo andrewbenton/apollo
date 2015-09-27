@@ -16,6 +16,8 @@ if(CMAKE_COMPILER_IS_GNUCC)
     set(CMAKE_C_FLAGS -std=c99)
 endif()
 
+set(CMAKE_C_FLAGS -g)
+
 set(HAVE_VALADOC OFF)
 if(BUILD_VALADOC)
 	find_package(Valadoc)

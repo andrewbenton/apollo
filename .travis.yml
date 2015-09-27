@@ -13,7 +13,7 @@ before_install:
     - sudo apt-get install byacc
     - sudo apt-get install flex
     - wget https://download.gnome.org/sources/vala/0.30/vala-0.30.0.tar.xz -O /tmp/vala-0.30.0.tar.xz
-    - cd && tar xvf /tmp/vala-0.30.0.tar.gz
+    - cd && tar xvf /tmp/vala-0.30.0.tar.xz
     - cd vala-0.30.0 && ./configure && sudo make && sudo make install
     - wget https://download.gnome.org/sources/libgee/0.18/libgee-0.18.0.tar.xz -O /tmp/libgee-0.18.0.tar.xz
     - cd && tar xvf /tmp/libgee-0.18.0.tar.xz

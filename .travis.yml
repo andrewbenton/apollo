@@ -1,7 +1,7 @@
 language: vala
 
 before_install:
-    - pushd
+    - pushd .
     - sudo apt-get install cmake
     - sudo apt-get install cmake-curses-gui
     - sudo apt-get install cmake-data

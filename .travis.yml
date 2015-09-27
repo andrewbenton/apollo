@@ -1,5 +1,16 @@
 language: vala
 
+addons:
+    apt:
+        - libgee-0.8
+        - libgee-0.8-dev
+        - libjson-glib-1.0-0
+        - libjson-glib-1.0-common
+        - libvala-0.28-0
+        - libvala-0.28-dev
+        - libvala-0.28-0-dbg
+        - cmake
+
 compiler:
     - valac
     - gcc
@@ -11,13 +22,8 @@ before_script:
     - make
 
 before_install:
-    - wget https://download.gnome.org/sources/vala/0.30/vala-0.30.0.tar.xz
-    - tar xf vala-0.30.0.tar.gz
-    - cd vala-0.30.0
-    - ./configure
-    - sudo make && sudo make install
-    - sudo apt-get install libgee-0.8 libgee-0.8-dev libjson-glib-1.0-0 libjson-glib-1.0-common
-
-install: glib-2.0 gio-2.0 json-glib-1.0 valac libgee make get-deps
+    - wget https://download.gnome.org/sources/vala/0.30/vala-0.30.0.tar.xz -O /tmp/vala-0.30.0.tar.gz
+    - tar xvf /tmp/vala-0.30.0.tar.gz
+    - cd vala-0.30.0 && ./configure && sudo make && sudo make install
 
 script: make test

@@ -23,6 +23,7 @@ before_install:
     - cd libgee-0.18.0 && ./configure && sudo make && sudo make install
 
 before_script:
+    - cd && cd andrewbenton/apollo
     - mkdir build
     - cd build
     - cmake ..

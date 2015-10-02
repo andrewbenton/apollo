@@ -61,14 +61,14 @@ public class EchoNode : apollo.behavioral.Node
 
 public class EchoNodeContext : apollo.behavioral.NodeContext
 {
-    public override StatusValue call(out string next)
+    public override StatusValue call(HashMap<string, GLib.Value?> blackboard, out string next)
     {
         stdout.printf("echo: %s\n", ((EchoNode)this.parent).echo_text);
         next = null;
         return StatusValue.SUCCESS;
     }
 
-    public override void send(StatusValue status)
+    public override void send(StatusValue status, HashMap<string, GLib.Value?> blackboard)
     {
     }
 }

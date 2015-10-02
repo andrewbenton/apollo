@@ -28,6 +28,8 @@ set(APP_SOURCES ${APP_SOURCES} tree_context.vala)
 
 include_directories(AFTER .)
 
+set(CUSTOM_VAPIS_LIST ${CUSTOM_VAPIS_LIST} ${CMAKE_SOURCE_DIR}/src/behavioral/vapis/behavioral_utils.vapi)
+
 vala_precompile(VALA_C apollo-behavioral
     ${APP_SOURCES}
 PACKAGES

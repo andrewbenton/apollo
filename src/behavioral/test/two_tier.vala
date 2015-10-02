@@ -90,7 +90,7 @@ public class EchoNodeB : apollo.behavioral.Node
 
 public class EchoNodeAContext : apollo.behavioral.NodeContext
 {
-    public override StatusValue call(out string next)
+    public override StatusValue call(HashMap<string, GLib.Value?> blackboard, out string next)
     {
         stdout.printf("echo: %s\n", ((EchoNodeA)this.parent).echo_text);
         next = null;
@@ -98,14 +98,14 @@ public class EchoNodeAContext : apollo.behavioral.NodeContext
     }
 
     //send is a no-op
-    public override void send(StatusValue status)
+    public override void send(StatusValue status, HashMap<string, GLib.Value?> blackboard)
     {
     }
 }
 
 public class EchoNodeBContext : apollo.behavioral.NodeContext
 {
-    public override StatusValue call(out string next)
+    public override StatusValue call(HashMap<string, GLib.Value?> blackboard, out string next)
     {
         stdout.printf("echo: %s\n", ((EchoNodeB)this.parent).echo_text);
         next = null;
@@ -113,7 +113,7 @@ public class EchoNodeBContext : apollo.behavioral.NodeContext
     }
 
     //send is a no-op
-    public override void send(StatusValue status)
+    public override void send(StatusValue status, HashMap<string, GLib.Value?> blackboard)
     {
     }
 }
@@ -158,7 +158,7 @@ public class SeqNodeContext : apollo.behavioral.NodeContext
      * @param next The CALL_DOWN destination that should be called.
      * @return The status of the call.
      */
-    public override StatusValue call(out string next)
+    public override StatusValue call(HashMap<string, GLib.Value?> blackboard, out string next)
     {
         string[] p_children = ((SeqNode)this.parent).children;
 
@@ -172,11 +172,13 @@ public class SeqNodeContext : apollo.behavioral.NodeContext
             }
             else
             {
+                next = null;
                 return StatusValue.SUCCESS;
             }
         }
         else
         {
+            next = null;
             return StatusValue.FAILURE;
         }
     }
@@ -186,7 +188,7 @@ public class SeqNodeContext : apollo.behavioral.NodeContext
      *
      * @param status The status of the child node that is calling up to this context
      */
-    public override void send(StatusValue status)
+    public override void send(StatusValue status, HashMap<string, GLib.Value?> blackboard)
     {
         if(status == StatusValue.FAILURE)
             this.good = false;

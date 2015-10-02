@@ -1,3 +1,5 @@
+using Gee;
+
 namespace apollo.behavioral
 {
     public abstract class NodeContext
@@ -9,8 +11,8 @@ namespace apollo.behavioral
             this.parent = parent;
         }
 
-        public abstract StatusValue call(out string next);
+        public abstract StatusValue call(HashMap<string, GLib.Value?> blackboard, out string next);
 
-        public abstract void send(StatusValue status);
+        public abstract void send(StatusValue status, HashMap<string, GLib.Value?> blackboard);
     }
 }

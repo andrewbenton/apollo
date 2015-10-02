@@ -9,6 +9,7 @@ namespace apollo.behavioral
         public BehavioralTreeSet bts;
         public uint max_iters { get; set; }
         public StatusValue status { get; private set; }
+        public HashMap<string, GLib.Value?> blackboard { get; private set; }
 
         internal TreeContext(BehavioralTreeSet bts, string root, uint max_iters = 1)
         {
@@ -20,6 +21,7 @@ namespace apollo.behavioral
             this.bts = bts;
             this.max_iters = max_iters;
             this.status = StatusValue.FINISHED;
+            this.blackboard = new HashMap<string, GLib.Value?>();
         }
 
         public StatusValue run()
@@ -44,7 +46,7 @@ namespace apollo.behavioral
             {
                 nc = this.stack.peek_head();
 
-                status = nc.call(out next);
+                status = nc.call(this.blackboard, out next);
 
                 this.status = status;
 
@@ -55,7 +57,7 @@ namespace apollo.behavioral
                         this.stack.poll_head();
                         if(this.stack.size > 0)
                         {
-                            this.stack.peek_head().send(status);
+                            this.stack.peek_head().send(status, this.blackboard);
                         }
                         else
                         {
@@ -66,8 +68,14 @@ namespace apollo.behavioral
                         return status;
                     case StatusValue.CALL_DOWN:
                         n = this.bts[next];
-                        assert(n != null);
-                        this.stack.offer_head(n.create_context());
+                        if(null == n)
+                        {
+                            this.stack.peek_head().send(StatusValue.INVALID, this.blackboard);
+                        }
+                        else
+                        {
+                            this.stack.offer_head(n.create_context());
+                        }
                         break;
                 }
             }

@@ -49,3 +49,18 @@ CUSTOM_VAPIS
 add_executable(two-tier-test ${VALA_C_TT})
 
 add_test(NAME two-tier-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/two-tier-test)
+
+#make executable for json-configuration executable and test
+set(JT_APP_SOURCES ${JT_APP_SOURCES} json_test.vala)
+
+vala_precompile(VALA_C_JT json-conf-test
+    ${JT_APP_SOURCES}
+PACKAGES
+    ${VALA_PACKAGES}
+CUSTOM_VAPIS
+    ${CUSTOM_VAPIS_LIST}
+)
+
+add_executable(json-conf-test ${VALA_C_JT})
+
+add_test(NAME json-conf-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/json-conf-test)

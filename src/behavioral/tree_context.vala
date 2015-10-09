@@ -2,15 +2,44 @@ using Gee;
 
 namespace apollo.behavioral
 {
+
+    /**
+     * The context representing a single suspendable execution of a behavioral tree.
+     */
     public class TreeContext
     {
+        /**
+         * The stack of nodes to be manipulated.
+         */
         public LinkedList<NodeContext> stack;
+        /**
+         * The root element on the tree.
+         */
         public string root;
+        /**
+         * The set of behavior tree nodes and other data that can be accessed.
+         */
         public BehavioralTreeSet bts;
+        /**
+         * The maximum iterations of nodes that the tree will take before returning.
+         */
         public uint max_iters { get; set; }
+        /**
+         * The last returned status value from execution.
+         */
         public StatusValue status { get; private set; }
+        /**
+         * The map of values that executing nodes can access.
+         */
         public HashMap<string, GLib.Value?> blackboard { get; private set; }
 
+        /**
+         * Create a behavioral tree execution context.  This should only be accessed from within the BehavioralTreeSet.
+         *
+         * @param bts Set of data that is used for construction and execution of the TreeContext.
+         * @param root The seed node that will start the tree.
+         * @param max_iters The maximum number of iterations of node calls that the context will run by default.
+         */
         internal TreeContext(BehavioralTreeSet bts, string root, uint max_iters = 1)
         {
             if(max_iters < 1)
@@ -24,6 +53,11 @@ namespace apollo.behavioral
             this.blackboard = new HashMap<string, GLib.Value?>();
         }
 
+        /**
+         * Run the behavioral tree until complete or the remaining node iterations reduces to zero.
+         *
+         * @return Either FINISHED or RUNNING to show the state of the tree's execution.
+         */
         public StatusValue run()
         {
             //if the stack is emtpy, start over

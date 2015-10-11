@@ -24,7 +24,7 @@ int main(string[] args)
 
     assert(jcn.configure(conf) == true);
 
-    bts.add_node("json", jcn);
+    bts.add_node_with_name("json", jcn);
 
     bts.register_tree("test", "json");
 

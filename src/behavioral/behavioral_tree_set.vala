@@ -57,12 +57,22 @@ namespace apollo.behavioral
         }
 
         /**
+         * Register a node its internal name.
+         *
+         * @param node The instantiated node to be registered.  The registration name will be derived from this node.
+         */
+        public void add_node(Node node)
+        {
+            this.node_map[node.name] = node;
+        }
+
+        /**
          * Register a node with a designated name.
          *
          * @param node_name The name that the node will be mapped with.
          * @param node The instantiated node to be registered.
          */
-        public void add_node(string node_name, Node node)
+        public void add_node_with_name(string node_name, Node node)
         {
             this.node_map[node_name] = node;
         }

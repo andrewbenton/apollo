@@ -10,7 +10,7 @@ int main(string[] args)
     var echo = new EchoNode();
     echo.configure();
 
-    bt.add_node("echo", echo);
+    bt.add_node_with_name("echo", echo);
 
     bt.register_tree("test", "echo");
 

@@ -63,7 +63,14 @@ namespace apollo.behavioral
             //if the stack is emtpy, start over
             if(this.stack.size < 1)
             {
-                this.stack.offer_head(bts[root].create_context());
+                try
+                {
+                    this.stack.offer_head(bts[root].create_context());
+                }
+                catch(BehavioralTreeError bte)
+                {
+                    return StatusValue.INVALID;
+                }
             }
 
             int i = 0;
@@ -73,13 +80,11 @@ namespace apollo.behavioral
             Node n = null;
 
             //run while there is a context to process and you have not exceeded your limit
-            while(
-                    this.stack.size > 0 &&
-                    (i++ < this.max_iters || this.max_iters < 1)
-                 )
+            while(this.stack.size > 0 && (i++ < this.max_iters || this.max_iters < 1))
             {
                 nc = this.stack.peek_head();
 
+                //log_warn("[%s{%s}.call()]\n", this.stack.peek_head().parent.get_type().name(), this.stack.peek_head().parent.name);
                 status = nc.call(this.blackboard, out next);
 
                 this.status = status;
@@ -108,7 +113,14 @@ namespace apollo.behavioral
                         }
                         else
                         {
-                            this.stack.offer_head(n.create_context());
+                            try
+                            {
+                                this.stack.offer_head(n.create_context());
+                            }
+                            catch(BehavioralTreeError bte)
+                            {
+                                this.stack.peek_head().send(StatusValue.INVALID, this.blackboard);
+                            }
                         }
                         break;
                 }

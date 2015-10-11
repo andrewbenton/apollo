@@ -26,6 +26,18 @@ set(APP_SOURCES ${APP_SOURCES} node_context.vala)
 set(APP_SOURCES ${APP_SOURCES} status_value.vala)
 set(APP_SOURCES ${APP_SOURCES} tree_context.vala)
 
+#implementations
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/singleton_node.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/singleton_node_context.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/shortcut_and_node.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/shortcut_and_node_context.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/shortcut_or_node.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/shortcut_or_node_context.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/echo_node.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/echo_node_context.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/not_node.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/not_node_context.vala)
+
 include_directories(AFTER .)
 
 set(CUSTOM_VAPIS_LIST ${CUSTOM_VAPIS_LIST} ${CMAKE_SOURCE_DIR}/src/behavioral/vapis/behavioral.vapi)

@@ -64,3 +64,33 @@ CUSTOM_VAPIS
 add_executable(json-conf-test ${VALA_C_JT})
 
 add_test(NAME json-conf-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/json-conf-test)
+
+#make executable for shortcut-and executable and test
+set(SCA_APP_SOURCES ${SCA_APP_SOURCES} sc_and_test.vala)
+
+vala_precompile(VALA_C_SCA shortcut-and-test
+    ${SCA_APP_SOURCES}
+PACKAGES
+    ${VALA_PACKAGES}
+CUSTOM_VAPIS
+    ${CUSTOM_VAPIS_LIST}
+)
+
+add_executable(shortcut-and-test ${VALA_C_SCA})
+
+add_test(NAME shortcut-and-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/shortcut-and-test)
+
+#make executable for shortcut-or executable and test
+set(SCO_APP_SOURCES ${SCO_APP_SOURCES} sc_or_test.vala)
+
+vala_precompile(VALA_C_SCO schortcut-or-test
+    ${SCO_APP_SOURCES}
+PACKAGES
+    ${VALA_PACKAGES}
+CUSTOM_VAPIS
+    ${CUSTOM_VAPIS_LIST}
+)
+
+add_executable(shortcut-or-test ${VALA_C_SCO})
+
+add_test(NAME shortcut-or-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/shortcut-or-test)

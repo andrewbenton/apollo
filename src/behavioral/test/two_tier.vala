@@ -15,9 +15,9 @@ int main(string[] args)
     noda.configure();
     nodb.configure();
 
-    bt.add_node("top", seq);
-    bt.add_node("SubNodeA", noda);
-    bt.add_node("SubNodeB", nodb);
+    bt.add_node_with_name("top", seq);
+    bt.add_node_with_name("SubNodeA", noda);
+    bt.add_node_with_name("SubNodeB", nodb);
 
     bt.register_tree("test", "top");
 

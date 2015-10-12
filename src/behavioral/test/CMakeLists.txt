@@ -94,3 +94,18 @@ CUSTOM_VAPIS
 add_executable(shortcut-or-test ${VALA_C_SCO})
 
 add_test(NAME shortcut-or-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/shortcut-or-test)
+
+#make executable for echo-node executable and test
+set(EFT_APP_SOURCES ${EFT_APP_SOURCES} echo_fmt_test.vala)
+
+vala_precompile(VALA_C_EFT echo-fmt-test
+    ${EFT_APP_SOURCES}
+PACKAGES
+    ${VALA_PACKAGES}
+CUSTOM_VAPIS
+    ${CUSTOM_VAPIS_LIST}
+)
+
+add_executable(echo-fmt-test ${VALA_C_EFT})
+
+add_test(NAME echo-fmt-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/echo-fmt-test)

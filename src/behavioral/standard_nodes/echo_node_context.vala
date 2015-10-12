@@ -3,12 +3,27 @@ using Json;
 
 namespace apollo.behavioral
 {
+
+    /**
+     * Expand the variables from the blackboard and print the output string.
+     */
     public class EchoNodeContext : apollo.behavioral.NodeContext
     {
+
+        /**
+         * Create the context for execution.
+         */
         public EchoNodeContext()
         {
         }
 
+        /**
+         * Expand the variables in the text from values in the blackboard.  No child nodes can be called.
+         *
+         * @param blackboard Provides variables for text expansion.
+         * @param next Unused.
+         * @return The status of execution.
+         */
         public override StatusValue call(HashMap<string, GLib.Value?> blackboard, out string next)
         {
             EchoNode en = this.parent as EchoNode;
@@ -58,6 +73,9 @@ namespace apollo.behavioral
             return StatusValue.SUCCESS;
         }
 
+        /**
+         * Create a string from a nullable GLib.Value.
+         */
         private static string value_to_string(GLib.Value? val)
         {
             if(val == null)
@@ -77,6 +95,9 @@ namespace apollo.behavioral
             }
         }
 
+        /**
+         * This function should be unused.  The echo node supports no child nodes.
+         */
         public override void send(StatusValue status, HashMap<string, GLib.Value?> blackoard)
         {
             log_err("Reached EchoNodeContext.send() which should not be possible.");

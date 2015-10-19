@@ -104,5 +104,8 @@ int main()
 
     stdout.printf("final status: %s\n", status.to_string());
 
-    return 0;
+    if(status == StatusValue.SUCCESS)
+        return 0;
+    else
+        return 1;
 }

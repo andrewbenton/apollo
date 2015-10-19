@@ -16,9 +16,16 @@ set(VALA_PACKAGES ${VALA_PACKAGES} glib-2.0)
 set(VALA_PACKAGES ${VALA_PACKAGES} gio-2.0)
 set(VALA_PACKAGES ${VALA_PACKAGES} json-glib-1.0)
 set(VALA_PACKAGES ${VALA_PACKAGES} gee-0.8)
+set(VALA_PACKAGES ${VALA_PACKAGES} lua)
 
 set(CUSTOM_VAPIS_LIST ${CUSTOM_VAPIS_LIST} ${CMAKE_BINARY_DIR}/src/behavioral/apollo-behavioral.vapi)
 
+#debug flags
+if(DEBUG)
+    set(COMPILE_OPTIONS ${COMPILE_OPTIONS} -D DEBUG --debug)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDEBUG -g ")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG -g ")
+endif()
 
 #Make executable for context executable and test
 set(TC_APP_SOURCES ${TC_APP_SOURCES} tree_construct.vala)
@@ -29,6 +36,8 @@ PACKAGES
     ${VALA_PACKAGES}
 CUSTOM_VAPIS
     ${CUSTOM_VAPIS_LIST}
+OPTIONS
+    ${COMPILE_OPTIONS}
 )
 
 add_executable(tree-context-test ${VALA_C_TC})
@@ -44,6 +53,8 @@ PACKAGES
     ${VALA_PACKAGES}
 CUSTOM_VAPIS
     ${CUSTOM_VAPIS_LIST}
+OPTIONS
+    ${COMPILE_OPTIONS}
 )
 
 add_executable(two-tier-test ${VALA_C_TT})
@@ -59,6 +70,8 @@ PACKAGES
     ${VALA_PACKAGES}
 CUSTOM_VAPIS
     ${CUSTOM_VAPIS_LIST}
+OPTIONS
+    ${COMPILE_OPTIONS}
 )
 
 add_executable(json-conf-test ${VALA_C_JT})
@@ -74,6 +87,8 @@ PACKAGES
     ${VALA_PACKAGES}
 CUSTOM_VAPIS
     ${CUSTOM_VAPIS_LIST}
+OPTIONS
+    ${COMPILE_OPTIONS}
 )
 
 add_executable(shortcut-and-test ${VALA_C_SCA})
@@ -89,6 +104,8 @@ PACKAGES
     ${VALA_PACKAGES}
 CUSTOM_VAPIS
     ${CUSTOM_VAPIS_LIST}
+OPTIONS
+    ${COMPILE_OPTIONS}
 )
 
 add_executable(shortcut-or-test ${VALA_C_SCO})
@@ -104,8 +121,27 @@ PACKAGES
     ${VALA_PACKAGES}
 CUSTOM_VAPIS
     ${CUSTOM_VAPIS_LIST}
+OPTIONS
+    ${COMPILE_OPTIONS}
 )
 
 add_executable(echo-fmt-test ${VALA_C_EFT})
 
 add_test(NAME echo-fmt-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/echo-fmt-test)
+
+#make executable for lua-node executable and test
+set(LNT_APP_SOURCES ${LNT_APP_SOURCES} lua_script_test.vala)
+
+vala_precompile(VALA_C_LNT lua-node-test
+    ${LNT_APP_SOURCES}
+PACKAGES
+    ${VALA_PACKAGES}
+CUSTOM_VAPIS
+    ${CUSTOM_VAPIS_LIST}
+OPTIONS
+    ${COMPILE_OPTIONS}
+)
+
+add_executable(lua-node-test ${VALA_C_LNT})
+
+add_test(NAME lua-node-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/lua-node-test)

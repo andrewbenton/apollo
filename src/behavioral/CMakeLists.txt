@@ -18,6 +18,7 @@ set(VALA_PACKAGES ${VALA_PACKAGES} glib-2.0)
 set(VALA_PACKAGES ${VALA_PACKAGES} gio-2.0)
 set(VALA_PACKAGES ${VALA_PACKAGES} json-glib-1.0)
 set(VALA_PACKAGES ${VALA_PACKAGES} gee-0.8)
+set(VALA_PACKAGES ${VALA_PACKAGES} lua)
 
 set(APP_SOURCES ${APP_SOURCES} behavioral_tree_error.vala)
 set(APP_SOURCES ${APP_SOURCES} behavioral_tree_set.vala)
@@ -37,6 +38,16 @@ set(APP_SOURCES ${APP_SOURCES} standard_nodes/echo_node.vala)
 set(APP_SOURCES ${APP_SOURCES} standard_nodes/echo_node_context.vala)
 set(APP_SOURCES ${APP_SOURCES} standard_nodes/not_node.vala)
 set(APP_SOURCES ${APP_SOURCES} standard_nodes/not_node_context.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/lua_node.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/lua_node_context.vala)
+set(APP_SOURCES ${APP_SOURCES} standard_nodes/luavm_status.vala)
+
+#debug flags
+if(DEBUG)
+    set(COMPILE_OPTIONS ${COMPILE_OPTIONS} -D DEBUG --debug)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDEBUG -g ")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG -g ")
+endif()
 
 include_directories(AFTER .)
 

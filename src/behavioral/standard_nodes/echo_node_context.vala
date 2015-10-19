@@ -45,13 +45,13 @@ namespace apollo.behavioral
                 {
                     string key = template_text[new_start+2:new_end];
 
-                    log_warn("adding: %s\n", template_text[last_idx:new_start]);
+                    log_info("adding: %s\n", template_text[last_idx:new_start]);
                     sb.append(template_text[last_idx:new_start]);
 
                     //use same behavior as bash where default of key is empty
                     if(blackboard.has_key(key))
                     {
-                        log_warn("adding: %s\n", value_to_string(blackboard[key]));
+                        log_info("adding: %s\n", value_to_string(blackboard[key]));
                         sb.append(value_to_string(blackboard[key]));
                     }
 
@@ -62,7 +62,7 @@ namespace apollo.behavioral
                 }
                 else
                 {
-                    log_warn("adding: %s\n", template_text[last_idx:template_text.length]);
+                    log_info("adding: %s\n", template_text[last_idx:template_text.length]);
                     sb.append(template_text[last_idx:template_text.length]);
                     break;
                 }
@@ -98,7 +98,7 @@ namespace apollo.behavioral
         /**
          * This function should be unused.  The echo node supports no child nodes.
          */
-        public override void send(StatusValue status, HashMap<string, GLib.Value?> blackoard)
+        public override void send(StatusValue status, HashMap<string, GLib.Value?> blackboard)
         {
             log_err("Reached EchoNodeContext.send() which should not be possible.");
         }

@@ -65,39 +65,99 @@ namespace apollo.behavioral
                             //if(typeof(Gee.Collection) == spec_type)
                             if(spec_type.is_a(typeof(Gee.Collection)))
                             {
-                                var collection_member = GLib.Object.@new(spec_type);
+                                Gee.Collection<string> boxed;
+                                log_info("Attempting to create Gee.Collection of type: %s\n", spec_type.name());
 
-                                var boxed = (Gee.Collection<string>)collection_member;
-
-                                foreach(Json.Node n in jsn_array.get_elements())
+                                if(spec_type == typeof(Gee.ArrayList))
                                 {
-                                    if(n.get_node_type() == NodeType.VALUE)
-                                    {
-                                        GLib.Value val = n.get_value();
-                                        GLib.Value str_val = GLib.Value(typeof(string));
+                                    boxed = new Gee.ArrayList<string>();
+                                    log_info("Created ArrayList at %p\n", (void*)boxed);
+                                }
+                                else if(spec_type == typeof(Gee.ArrayQueue))
+                                {
+                                    boxed = new Gee.ArrayQueue<string>();
+                                    log_info("Created ArrayQueue at %p\n", (void*)boxed);
+                                }
+                                else if(spec_type == typeof(Gee.ConcurrentList))
+                                {
+                                    boxed = new Gee.ConcurrentList<string>();
+                                    log_info("Created ConcurrentList at %p\n", (void*)boxed);
+                                }
+                                else if(spec_type == typeof(Gee.HashSet))
+                                {
+                                    boxed = new Gee.HashSet<string>();
+                                    log_info("Created HashSet at %p\n", (void*)boxed);
+                                }
+                                else if(spec_type == typeof(Gee.HashMultiSet))
+                                {
+                                    boxed = new Gee.HashMultiSet<string>();
+                                    log_info("Created HashMultiSet at %p\n", (void*)boxed);
+                                }
+                                else if(spec_type == typeof(Gee.LinkedList))
+                                {
+                                    boxed = new Gee.LinkedList<string>();
+                                    log_info("Created LinkedList at %p\n", (void*)boxed);
+                                }
+                                else if(spec_type == typeof(Gee.PriorityQueue))
+                                {
+                                    boxed = new Gee.PriorityQueue<string>();
+                                    log_info("Created PriorityQueue at %p\n", (void*)boxed);
+                                }
+                                else if(spec_type == typeof(Gee.TreeMultiSet))
+                                {
+                                    boxed = new Gee.TreeMultiSet<string>();
+                                    log_info("Created TreeMultiSet at %p\n", (void*)boxed);
+                                }
+                                else if(spec_type == typeof(Gee.TreeSet))
+                                {
+                                    boxed = new Gee.TreeSet<string>();
+                                    log_info("Created TreeSet at %p\n", (void*)boxed);
+                                }
+                                else
+                                {
+                                    boxed = null;
+                                    log_err("Unsupported Gee.Collection type: %s\n", spec_type.name());
+                                }
 
-                                        if(val.type() == typeof(string))
+                                if(null != boxed)
+                                {
+                                    log_info("Created Gee.Collection of type: %s\n", boxed.get_type().name());
+
+                                    foreach(Json.Node n in jsn_array.get_elements())
+                                    {
+                                        if(n.get_node_type() == NodeType.VALUE)
                                         {
-                                            val.transform(ref str_val);
-                                        }
-                                        else if(Value.type_transformable(val.type(), typeof(string)))
-                                        {
-                                            val.transform(ref str_val);
+                                            GLib.Value val = n.get_value();
+                                            GLib.Value str_val = GLib.Value(typeof(string));
+
+                                            if(val.type() == typeof(string))
+                                            {
+                                                val.transform(ref str_val);
+                                            }
+                                            else if(Value.type_transformable(val.type(), typeof(string)))
+                                            {
+                                                val.transform(ref str_val);
+                                            }
+                                            else
+                                            {
+                                                log_warn("Unable to transform type[%s] to string.\n", val.type().name());
+                                            }
+
+                                            log_info("Adding \"%s\" to Collection\n", (string)str_val);
+                                            boxed.add((string)str_val);
                                         }
                                         else
                                         {
-                                            log_warn("Unable to transform type[%s] to string.\n", val.type().name());
+                                            log_warn("Unable to handle non-value json node type.\n");
                                         }
+                                    }
 
-                                        boxed.add(str_val.dup_string());
-                                    }
-                                    else
-                                    {
-                                        log_warn("Unable to handle non-value json node type.\n");
-                                    }
+                                    var col = GLib.Object.@new(spec_type);
+
+                                    col = boxed;
+
+                                    this.set_property(name, col);
                                 }
-
-                                this.set_property(name, collection_member);
                             }
                             else if(typeof(GLib.List) == spec_type)
                             {
@@ -122,7 +182,8 @@ namespace apollo.behavioral
                                             log_warn("Unable to transform type[%s] to string.\n", val.type().name());
                                         }
 
-                                        list_member.append(str_val.dup_string());
+                                        log_info("Adding \"%s\" to GLib.List\n", (string)str_val);
+                                        list_member.append((string)str_val);
                                     }
                                     else
                                     {
@@ -155,7 +216,8 @@ namespace apollo.behavioral
                                             log_warn("Unable to transform type[%s] to string.\n", val.type().name());
                                         }
 
-                                        array_member.append_val(str_val.dup_string());
+                                        log_info("Adding \"%s\" to GLib.Array\n", (string)str_val);
+                                        array_member.append_val((string)str_val);
                                     }
                                     else
                                     {
@@ -179,6 +241,7 @@ namespace apollo.behavioral
                 }
                 else
                 {
+                    log_err("Member %s is not available in the Json Object\n", name);
                     passing = false;
                 }
             }

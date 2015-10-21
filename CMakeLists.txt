@@ -59,9 +59,10 @@ set(MODULES_TO_CHECK ${MODULES_TO_CHECK} glib-2.0)
 set(MODULES_TO_CHECK ${MODULES_TO_CHECK} gee-0.8)
 set(MODULES_TO_CHECK ${MODULES_TO_CHECK} json-glib-1.0)
 set(MODULES_TO_CHECK ${MODULES_TO_CHECK} gio-2.0)
-SEt(MODULES_TO_CHECK ${MODULES_TO_CHECK} lua)
 
 pkg_check_modules(DEPS REQUIRED ${MODULES_TO_CHECK})
+
+find_package(Lua REQUIRED)
 
 option(USE_COLOR "Enable colored output" ON)
 

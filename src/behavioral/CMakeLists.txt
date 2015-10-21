@@ -7,7 +7,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/apollo-behavioral.pc   ${CMAKE_CURREN
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/apollo-behavioral.deps ${CMAKE_CURRENT_BINARY_DIR}/apollo-behavioral.deps)
 
 add_definitions(${DEPS_CFLAGS})
+#add_definitions(${LUA_INCLUDE_DIR})
 link_libraries(${DEPS_LIBRARIES})
+link_libraries(${LUA_LIBRARIES})
 link_directories(${DEPS_LIBRARY_DIRS})
 find_package(Vala REQUIRED)
 include(ValaVersion)

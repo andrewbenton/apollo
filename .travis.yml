@@ -14,11 +14,11 @@ before_install:
     - sudo apt-get install btyacc
     - sudo apt-get install byacc
     - sudo apt-get install flex
-    - sudo apt-get install lua5.2
-    - sudo apt-get install liblua5.2-dev
-    #- wget http://www.lua.org/ftp/lua-5.3.1.tar.gz -O /tmp/lua-5.3.1.tar.gz
-    #- cd && tar xvf /tmp/lua-5.3.1.tar.gz
-    #- cd lua-5.3.1 && make posix && sudo make install
+    #- sudo apt-get install lua5.2
+    #- sudo apt-get install liblua5.2-dev
+    - wget http://www.lua.org/ftp/lua-5.3.1.tar.gz -O /tmp/lua-5.3.1.tar.gz
+    - cd && tar xvf /tmp/lua-5.3.1.tar.gz
+    - cd lua-5.3.1 && make posix && sudo make install
     - wget https://download.gnome.org/sources/glib/2.42/glib-2.42.2.tar.xz -O /tmp/glib-2.42.2.tar.xz
     - cd && tar xvf /tmp/glib-2.42.2.tar.xz
     - cd glib-2.42.2 && ./configure && sudo make && sudo make install

@@ -147,3 +147,20 @@ OPTIONS
 add_executable(lua-node-test ${VALA_C_LNT})
 
 add_test(NAME lua-node-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/lua-node-test)
+
+#make executable for json map loading
+set(JMT_APP_SOURCES ${JMT_APP_SOURCES} map_node_test.vala)
+
+vala_precompile(VALA_C_JMT json-map-test
+    ${JMT_APP_SOURCES}
+PACKAGES
+    ${VALA_PACKAGES}
+CUSTOM_VAPIS
+    ${CUSTOM_VAPIS_LIST}
+OPTIONS
+    ${COMPILE_OPTIONS}
+)
+
+add_executable(json-map-test ${VALA_C_JMT})
+
+add_test(NAME json-map-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/json-map-test)

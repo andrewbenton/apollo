@@ -214,6 +214,7 @@ namespace apollo.behavioral
                                         else
                                         {
                                             log_warn("Unable to transform type[%s] to string.\n", val.type().name());
+                                            continue;
                                         }
 
                                         log_info("Adding \"%s\" to GLib.Array\n", (string)str_val);
@@ -230,6 +231,106 @@ namespace apollo.behavioral
                             else
                             {
                                 log_err("Unsupported member type: %s\n", spec_type.name());
+                                passing = false;
+                            }
+                            break;
+                        case NodeType.OBJECT:
+                            Json.Object obj = node.get_object();
+
+                            if(spec_type.is_a(typeof(Gee.Map)))
+                            {
+                                Gee.Map<string, string> map;
+
+                                if(spec_type == typeof(Gee.HashMap))
+                                {
+                                    map = new Gee.HashMap<string, string>();
+                                    log_info("Created %s at %p\n", map.get_type().name(), (void*)map);
+                                }
+                                else if(spec_type == typeof(Gee.TreeMap))
+                                {
+                                    map = new Gee.TreeMap<string, string>();
+                                    log_info("Created %s at %p\n", map.get_type().name(), (void*)map);
+                                }
+                                else
+                                {
+                                    map = null;
+                                    log_err("Unsupported Gee.Map type: %s\n", spec_type.name());
+                                }
+
+                                if(map != null)
+                                {
+                                    foreach(string member in obj.get_members())
+                                    {
+                                        Json.Node n = (Json.Node)obj.get_member(member);
+
+                                        if(n.get_node_type() == NodeType.VALUE)
+                                        {
+                                            GLib.Value val = n.get_value();
+                                            GLib.Value str_val = GLib.Value(typeof(string));
+
+                                            if(val.type() == typeof(string))
+                                                val.transform(ref str_val);
+                                            else if(Value.type_transformable(val.type(), typeof(string)))
+                                                val.transform(ref str_val);
+                                            else
+                                            {
+                                                log_warn("Unable to transform type[%s] to string.\n", val.type().name());
+                                                continue;
+                                            }
+
+                                            log_info("Adding \"(%s, %s)\" to Gee.Map\n", member, (string)str_val);
+                                            map.@set(member, (string)str_val);
+                                        }
+                                        else
+                                        {
+                                            log_warn("Unable to extract data from %s[%s] because it is not a value type.\n", name, member);
+                                        }
+                                    }
+
+                                    var boxed = GLib.Object.@new(spec_type);
+
+                                    boxed = map;
+
+                                    this.set_property(name, boxed);
+                                }
+                            }
+                            else if(typeof(GLib.HashTable) == spec_type)
+                            {
+                                var table = new HashTable<string, string>(str_hash, str_equal);
+
+                                foreach(string member in obj.get_members())
+                                {
+                                    Json.Node n = (Json.Node)obj.get_member(member);
+
+                                    if(n.get_node_type() == NodeType.VALUE)
+                                    {
+                                        GLib.Value val = n.get_value();
+                                        GLib.Value str_val = GLib.Value(typeof(string));
+
+                                        if(val.type() == typeof(string))
+                                            val.transform(ref str_val);
+                                        else if(Value.type_transformable(val.type(), typeof(string)))
+                                            val.transform(ref str_val);
+                                        else
+                                        {
+                                            log_warn("Unable to transform type[%s] to string.\n", val.type().name());
+                                            continue;
+                                        }
+
+                                        log_info("Adding \"(%s, %s)\" to GLib.HashTable.\n", member, (string)str_val);
+                                        table.@set(member, (string)str_val);
+                                    }
+                                    else
+                                    {
+                                        log_warn(@"Unable to extract data from %s[%s] because it is not a value type.\n", name, member);
+                                    }
+                                }
+
+                                this.set_property(name, table);
+                            }
+                            else
+                            {
+                                log_err("Unsupported member type for %s: %s\n", name, spec_type.name());
                                 passing = false;
                             }
                             break;

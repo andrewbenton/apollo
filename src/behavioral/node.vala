@@ -30,6 +30,23 @@ namespace apollo.behavioral
             if(null == properties)
                 return (0 == specs.length);
 
+            if(this.get_type().is_a(typeof(Json.Serializable)))
+            {
+                Json.Serializable ser_self = this as Json.Serializable;
+
+                assert(ser_self != null);
+
+                foreach(ParamSpec spec in specs)
+                {
+                    string name = spec.get_name();
+                    Value val;
+                    passing &= ser_self.deserialize_property(name, out val, spec, properties.get_member(name));
+                    ser_self.set_property(spec, val);
+                }
+
+                return passing;
+            }
+
             foreach(ParamSpec spec in specs)
             {
                 string name = spec.get_name();

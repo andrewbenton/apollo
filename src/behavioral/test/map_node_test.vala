@@ -93,6 +93,11 @@ public class GeeJsonConfNode : apollo.behavioral.Node
 
     public GeeJsonConfNode()
     {
+        this.init();
+    }
+
+    public override void init()
+    {
         this.name = "";
         this.map = new Gee.HashMap<string, string>();
     }
@@ -110,6 +115,11 @@ public class GLibJsonConfNode : apollo.behavioral.Node
     public GLib.HashTable<string, string> map { get; protected set; }
 
     public GLibJsonConfNode()
+    {
+        this.init();
+    }
+
+    public override void init()
     {
         this.name = "";
         this.map = new HashTable<string, string>(str_hash, str_equal);

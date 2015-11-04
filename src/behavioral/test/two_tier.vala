@@ -51,6 +51,11 @@ public class EchoNodeA : apollo.behavioral.Node
 
     public EchoNodeA()
     {
+        this.init();
+    }
+
+    public override void init()
+    {
         this.name = "EchoNodeA";
         this.echo_text = "SubNode A";
     }
@@ -73,6 +78,11 @@ public class EchoNodeB : apollo.behavioral.Node
     public string echo_text { get; private set; }
 
     public EchoNodeB()
+    {
+        this.init();
+    }
+
+    public override void init()
     {
         this.name = "EchoNodeB";
         this.echo_text = "SubNode B";
@@ -126,6 +136,11 @@ public class SeqNode : apollo.behavioral.Node
     public string[] children { get; set; }
 
     public SeqNode()
+    {
+        this.init();
+    }
+
+    public override void init()
     {
         this.name = "SeqNode";
         this.children =  new string[] { "SubNodeA", "SubNodeB" };

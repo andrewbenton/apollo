@@ -13,6 +13,12 @@ namespace apollo.behavioral
         //use direct hash and direct equal
         public LuaNode()
         {
+            this.init();
+        }
+
+        public override void init()
+        {
+            this.name = "";
             this.script == "";
             this.load_list = new LinkedList<string>();
         }

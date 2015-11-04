@@ -19,6 +19,11 @@ namespace apollo.behavioral
          */
         public NotNode()
         {
+            this.init();
+        }
+
+        public override void init()
+        {
             this.name = "";
             this.child = "";
         }

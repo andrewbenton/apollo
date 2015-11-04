@@ -44,6 +44,11 @@ public class EchoNode : apollo.behavioral.Node
 
     public EchoNode()
     {
+        this.init();
+    }
+
+    public override void init()
+    {
         this.name = "";
         this.echo_text = "";
     }

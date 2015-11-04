@@ -164,3 +164,20 @@ OPTIONS
 add_executable(json-map-test ${VALA_C_JMT})
 
 add_test(NAME json-map-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/json-map-test)
+
+#make executable for full json doc loading
+set(JDL_APP_SOURCES ${JDL_APP_SOURCES} json_config_test.vala)
+
+vala_precompile(VALA_C_JDL json-doc-test
+    ${JDL_APP_SOURCES}
+PACKAGES
+    ${VALA_PACKAGES}
+CUSTOM_VAPIS
+    ${CUSTOM_VAPIS_LIST}
+OPTIONS
+    ${COMPILE_OPTIONS}
+)
+
+add_executable(json-doc-test ${VALA_C_JDL})
+
+add_test(NAME json-doc-test COMMAND ${CMAKE_BINARY_DIR}/src/behavioral/test/json-doc-test)

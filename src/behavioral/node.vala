@@ -1,5 +1,4 @@
-using Gee;
-using Json;
+using Gee; using Json;
 
 namespace apollo.behavioral
 {
@@ -14,6 +13,11 @@ namespace apollo.behavioral
          * The name of the node.
          */
         public string name { get; protected set; }
+
+        /**
+         * Initialize the structures in the object that are needed by the configuration step.
+         */
+        public abstract void init();
 
         /**
          * Configures the node based on a json object if one is provided.

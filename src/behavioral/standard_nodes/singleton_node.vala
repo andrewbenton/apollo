@@ -23,6 +23,11 @@ namespace apollo.behavioral
          */
         public SingletonNode()
         {
+            this.init();
+        }
+
+        public override void init()
+        {
             this.name = "";
             this.guid = GLib.Random.int_range(0, int32.MAX).to_string();
             this.child = "";

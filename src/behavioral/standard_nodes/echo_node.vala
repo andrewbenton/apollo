@@ -19,6 +19,12 @@ namespace apollo.behavioral
          */
         public EchoNode()
         {
+            this.init();
+        }
+
+        public override void init()
+        {
+            this.name = "";
             this.text = "";
         }
 

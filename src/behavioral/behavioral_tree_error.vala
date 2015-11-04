@@ -13,6 +13,10 @@ namespace apollo.behavioral
          */
         UNKNOWN,
         /**
+         * The indicated node does not exist in the tree context.
+         */
+        NO_SUCH_NODE,
+        /**
          * The attempted tree does not exist in the tree context.
          */
         NO_SUCH_TREE,

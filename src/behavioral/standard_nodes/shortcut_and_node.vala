@@ -20,6 +20,11 @@ namespace apollo.behavioral
          */
         public ShortcutAndNode()
         {
+            this.init();
+        }
+
+        public override void init()
+        {
             this.name = "";
             this.children = new GLib.Array<string>();
         }

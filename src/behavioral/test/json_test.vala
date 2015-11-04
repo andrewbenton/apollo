@@ -58,6 +58,11 @@ public class JsonConfNode : apollo.behavioral.Node
 
     public JsonConfNode()
     {
+        this.init();
+    }
+
+    public override void init()
+    {
         this.name = "";
         this.text = "";
     }
